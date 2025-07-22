@@ -1,13 +1,30 @@
 from pydantic import BaseModel
 
-class UsuarioBase(BaseModel):
+# Usuario
+class UsuarioCreate(BaseModel):
+    nombre: str
+    contrasena: str
+
+class UsuarioOut(BaseModel):
+    id: int
     nombre: str
 
-class UsuarioCreate(UsuarioBase):
-    contraseña: str
+    class Config:
+        from_attributes = True
 
-class UsuarioOut(UsuarioBase):
+# Libro
+class LibroCreate(BaseModel):
+    titulo: str
+    autor: str
+
+class LibroOut(LibroCreate):
     id: int
+    disponible: bool = True
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+# Token
+class Token(BaseModel):
+    access_token: str
+    token_type: str
